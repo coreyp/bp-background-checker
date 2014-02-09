@@ -289,6 +289,7 @@ function bp_registration_options_member_requests() {
 					<th><?php _e( 'Email', 'bp-registration-options' ); ?></th>
 					<th><?php _e( 'Created', 'bp-registration-options' ); ?></th>
 					<th><?php _e( 'Additional Data', 'bp-registration-options' ); ?></th>
+					<th><?php _e( 'Background Checking', 'bp-registration-options' ); ?></th>
 					<?php
 					if ( !empty( $headings ) ) {
 						foreach( $headings as $heading ) {
@@ -341,6 +342,7 @@ function bp_registration_options_member_requests() {
 							?>
 						</div>
 					</td>
+					<td><?php echo _e('Hello background checker!');?></td>
 					<?php
 					if ( !empty( $content ) ) {
 						foreach( $content as $td ) {
@@ -358,6 +360,7 @@ function bp_registration_options_member_requests() {
 					<th><?php _e( 'Email', 'bp-registration-options' ); ?></th>
 					<th><?php _e( 'Created', 'bp-registration-options' ); ?></th>
 					<th><?php _e( 'Additional Data', 'bp-registration-options' ); ?></th>
+					<th><?php _e( 'Background Checking', 'bp-registration-options' ); ?></th>
 					<?php
 					if ( !empty( $headings ) ) {
 						foreach( $headings as $heading ) {
