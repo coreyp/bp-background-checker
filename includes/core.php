@@ -42,7 +42,7 @@ function wds_bp_registration_options_core_init(){
 		}
 		//non approved members can still view bp pages
 		if ( $bp_moderate == 1 && $user_ID > 0 ) {
-			$user = get_userdata( $user_ID );
+			$user = get_userdata($user_ID);
 			if ( 69 == $user->user_status ) {
 				//hide friend buttons
 				add_filter( 'bp_get_add_friend_button', '__return_false' );
@@ -203,28 +203,6 @@ function wds_bp_registration_options_bp_core_activate_account($user_id){
 	global $wpdb, $bp_moderate;
 	if ( $bp_moderate &&  $user_id > 0 ) {
 		if ( isset( $_GET['key'] ) ) {
-
-			$user = get_userdata( $user_id );
-			$admin_email = get_bloginfo( 'admin_email' );
-
-			//add HTML capabilities temporarily
-			add_filter('wp_mail_content_type','bp_registration_options_set_content_type');
-
-			//If their IP or email is blocked, don't proceed and exit silently.
-			$blockedIPs = get_option( 'bprwg_blocked_ips' );
-			$blockedemails = get_option( 'bprwg_blocked_emails' );
-			if ( in_array( $_SERVER['REMOTE_ADDR'], $blockedIPs ) || in_array( $user->user_email, $blockedemails ) ) {
-				$message = apply_filters( 'bprwg_banned_user_admin_email', __( 'Someone with a banned IP address or email just tried to register with your site', 'bp-registration-options' ) );
-				wp_mail( $admin_email, __( 'Banned member registration attempt', 'bp-registration-options' ), $message );
-
-				//Delete their account thus far.
-				if ( is_multisite() ) {
-					wpmu_delete_user( $user_id );
-				}
-				wp_delete_user( $user_id );
-				return;
-			}
-
 			//Hide user created by new user on activation.
 			$sql = 'UPDATE ' . $wpdb->base_prefix . 'users SET user_status = 69 WHERE ID = %d';
 			$wpdb->query( $wpdb->prepare( $sql, $user_id ) );
@@ -237,14 +215,12 @@ function wds_bp_registration_options_bp_core_activate_account($user_id){
 			update_user_meta( $user_id, 'bprwg_ip_address', $_SERVER['REMOTE_ADDR'] );
 
 			//email admin about new member request
+			$user = get_userdata( $user_id );
 			$user_name = $user->user_login;
 			$user_email = $user->user_email;
-			$message = $user_name . ' ( ' . $user_email . ' ) ' . __( 'would like to become a member of your website, to accept or reject their request please go to ', 'bp-registration-options') . admin_url( '/admin.php?page=bp_registration_options_member_requests' );
-
-			//add our filter and provide the user name and user email for them to utilize.
-			$mod_email = apply_filters( 'bprwg_new_member_request_admin_email', $message, $user_name, $user_email );
+			$mod_email = $user_name . ' ( ' . $user_email . ' ) ' . __( 'would like to become a member of your website, to accept or reject their request please go to ', 'bp-registration-options') . admin_url( '/admin.php?page=bp_registration_options_member_requests' );
+			$admin_email = get_bloginfo( 'admin_email' );
 			wp_mail( $admin_email, __( 'New Member Request', 'bp-registration-options' ), $mod_email );
-			remove_filter('wp_mail_content_type','bp_registration_options_set_content_type');
 		}
 	}
 }
@@ -272,34 +248,3 @@ function bp_registration_hide_pending_members( $args ) {
 
 	return $args;
 }
-
-/**
- * Prevent viewing of forums for non-approved members
- *
- * @since  4.2
- *
- * @param  array  $caps     array of primitive capabilities matched to the provided meta $cap
- * @param  string  $cap     The name of the meta capability to map to
- * @param  int  $user_id 	Current user's ID
- * @param  array  $args     array of extra arguments for the meta capability. Sometimes empty.
- *
- * @return array            array conditionally populated with do_not_allow.
- */
-function wds_bp_registration_options_map_meta( $caps, $cap, $user_id, $args ) {
-	if ( is_admin() )
-		return $caps;
-
-	$slug = get_option( '_bbp_forum_slug' );
-    $user = get_userdata( $user_id );
-
-    $bbpcaps = bbp_get_caps_for_role( bbp_get_user_role( $user_id ) );
-
-	foreach( $bbpcaps as $key => $cap ) {
-		if ( 'spectate' == $cap && 69 == $user->user_status ) {
-			$caps[] = 'do_not_allow';
-			break;
-		}
-	}
-    return $caps;
-}
-add_filter( 'map_meta_cap', 'wds_bp_registration_options_map_meta', 10, 4 );

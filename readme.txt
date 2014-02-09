@@ -36,7 +36,8 @@ Follow along with development on GitHub at [BuddyPress-Registration-Options](htt
 == Changelog ==
 
 = 4.1.3 =
-* Changed the hook that the load_plugin_textdomain loads on. Courtesy of http://geertdedeckere.be/article/loading-wordpress-language-files-the-right-way
+* Two language packs provided by gracious forum users
+* Confirmed working fixes for loading translations.
 
 = 4.1.2 =
 * properly hook our textdomain method, so that the plugin can be properly translated.
