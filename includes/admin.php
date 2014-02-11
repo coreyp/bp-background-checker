@@ -411,7 +411,7 @@ function bp_registration_options_help_support(){ ?>
  * @return string html for the footer output
  */
 function bp_registration_options_admin_footer() { ?>
-	<p style="margin-top: 50px;"><?php _e( 'BuddyPress Registration Options plugin created by', 'bp-registration-options' ); ?> <a target="_blank" href="http://webdevstudios.com">WebDevStudios.com</a></p>
+	<!-- <p style="margin-top: 50px;"><?php _e( 'BuddyPress Registration Options plugin created by', 'bp-registration-options' ); ?> <a target="_blank" href="http://webdevstudios.com">WebDevStudios.com</a></p>
 		<table>
 			<tr>
 				<td>
@@ -439,7 +439,7 @@ function bp_registration_options_admin_footer() { ?>
 					</table>
 				</td>
 			</tr>
-		</table>
+		</table> -->
 <?php
 }
 
