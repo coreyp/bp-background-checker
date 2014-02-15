@@ -1,0 +1,47 @@
+.error{
+	 background: none repeat scroll 0 0 #EECACA;
+    color: #302E2E;
+    font-weight: bold;
+    padding: 10px;
+    width: 95%;
+}
+
+.ubc_main_table{
+	background: none repeat scroll 0 0 #DEDDDD;
+    color: #000000;
+    margin: 20px 0;
+    width: 95%;
+}
+
+.ubc_main_table .tr_left{
+	background: #cfcfcf;
+	padding: 5px;
+	font-weight: bold;
+} 
+
+.ubc_main_table .tr_right{
+	background: #eee;
+	padding: 5px;
+} 
+
+.ubc_sub_table{
+	width: 100%;
+}
+
+.ubc_sub_table .tr_header{
+	background: #A9A9A9;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.ubc_sub_table .tr_data{
+	background: #eee;
+	padding: 5px;
+}
+
+.tr_head_highlight{
+	background: #8AA5D6 !important;
+}
+.tr_data_highlight{
+	background: #C5D4EF !important;
+}
