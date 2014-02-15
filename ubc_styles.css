@@ -45,3 +45,22 @@
 .tr_data_highlight{
 	background: #C5D4EF !important;
 }
+
+.ubc_user_info p{
+	font-weight: bold;
+}
+.ubc_user_info{
+	background: none repeat scroll 0 0 #DEDDDD;
+    font-weight: bold !important;
+    padding: 10px;
+    width: 93%;
+}
+
+.ubc_user_info input[type='button']{
+	width: 75px;
+
+}
+
+.ubc_user_info a{
+	text-decoration: none;
+}
